@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine Proposal 💖</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    background: radial-gradient(circle at top, #ff9a9e, #fad0c4);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:'Poppins', sans-serif;
+    overflow:hidden;
+}
+
+.card{
+    background:white;
+    padding:40px;
+    border-radius:25px;
+    text-align:center;
+    box-shadow:0 30px 60px rgba(0,0,0,0.3);
+    animation:pop 1.2s ease;
+}
+
+@keyframes pop{
+    from{opacity:0; transform:scale(0.6)}
+    to{opacity:1; transform:scale(1)}
+}
+
+h1{
+    color:#ff4d6d;
+    margin-bottom:25px;
+}
+
+button{
+    padding:14px 35px;
+    font-size:18px;
+    border:none;
+    border-radius:40px;
+    cursor:pointer;
+    margin:10px;
+    transition:0.3s;
+}
+
+#yes{
+    background:#ff4d6d;
+    color:white;
+}
+#yes:hover{
+    transform:scale(1.15);
+}
+
+#no{
+    background:#adb5bd;
+    color:white;
+    position:absolute;
+}
+
+.rose{
+    position:fixed;
+    font-size:28px;
+    animation:float 5s linear infinite;
+}
+
+@keyframes float{
+    0%{transform:translateY(0); opacity:1}
+    100%{transform:translateY(-700px); opacity:0}
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="card">
+    <h1>Sayantani 🌹<br>Will you be my Valentine?</h1>
+    <button id="yes">YES 💕</button>
+    <button id="no">NO 😅</button>
+</div>
+
+<script>
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+const card = document.getElementById("card");
+
+// NO button bhaagega
+noBtn.addEventListener("mouseover", () => {
+    noBtn.style.left = Math.random() * (window.innerWidth - 100) + "px";
+    noBtn.style.top = Math.random() * (window.innerHeight - 50) + "px";
+});
+
+// YES click = proposal ending
+yesBtn.addEventListener("click", () => {
+    card.innerHTML = `
+        <h1>Sayantani ❤️</h1>
+        <p style="font-size:20px; line-height:1.6">
+        From the moment I met you,<br>
+        every smile felt special 🌸<br><br>
+        Will you hold my hand<br>
+        and walk with me forever? 💍
+        </p>
+        <h2 style="color:#ff4d6d">I love you ❤️</h2>
+    `;
+    playMusic();
+    roses();
+});
+
+// soft romantic beep (no copyright)
+function playMusic(){
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = "triangle";
+    osc.frequency.value = 523;
+    gain.gain.value = 0.15;
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + 1.5);
+}
+
+// floating roses
+function roses(){
+    setInterval(() => {
+        const r = document.createElement("div");
+        r.className = "rose";
+        r.innerHTML = "🌹";
+        r.style.left = Math.random() * window.innerWidth + "px";
+        r.style.bottom = "0px";
+        document.body.appendChild(r);
+        setTimeout(() => r.remove(), 5000);
+    }, 250);
+}
+</script>
+
+</body>
+</html>
