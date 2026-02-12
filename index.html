@@ -49,14 +49,9 @@ button{
     background:#ff4d6d;
     color:white;
 }
+
 #yes:hover{
     transform:scale(1.15);
-}
-
-#no{
-    background:#adb5bd;
-    color:white;
-    position:absolute;
 }
 
 .rose{
@@ -74,27 +69,26 @@ button{
 
 <body>
 
+<!-- Background Music -->
+<audio id="bgMusic" src="song.mp3" loop></audio>
+
 <div class="card" id="card">
-    <h1>Sayantani 🌹<br>Will you be my Valentine?</h1>
+    <h1>Ankita 🌹<br>Will you be my Valentine?</h1>
     <button id="yes">YES 💕</button>
-    <button id="no">NO 😅</button>
 </div>
 
 <script>
-const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
 const card = document.getElementById("card");
+const music = document.getElementById("bgMusic");
 
-// NO button bhaagega
-noBtn.addEventListener("mouseover", () => {
-    noBtn.style.left = Math.random() * (window.innerWidth - 100) + "px";
-    noBtn.style.top = Math.random() * (window.innerHeight - 50) + "px";
-});
-
-// YES click = proposal ending
 yesBtn.addEventListener("click", () => {
+
+    // Play song
+    music.play();
+
     card.innerHTML = `
-        <h1>Sayantani ❤️</h1>
+        <h1>Ankita ❤️</h1>
         <p style="font-size:20px; line-height:1.6">
         From the moment I met you,<br>
         every smile felt special 🌸<br><br>
@@ -103,13 +97,25 @@ yesBtn.addEventListener("click", () => {
         </p>
         <h2 style="color:#ff4d6d">I love you ❤️</h2>
     `;
-    playMusic();
+
     roses();
 });
 
-// soft romantic beep (no copyright)
-function playMusic(){
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+function roses(){
+    setInterval(() => {
+        const r = document.createElement("div");
+        r.className = "rose";
+        r.innerHTML = "🌹";
+        r.style.left = Math.random() * window.innerWidth + "px";
+        r.style.bottom = "0px";
+        document.body.appendChild(r);
+        setTimeout(() => r.remove(), 5000);
+    }, 250);
+}
+</script>
+
+</body>
+</html>bkitAudioContext)();
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
     osc.type = "triangle";
